@@ -1,24 +1,19 @@
 package model;
 
-public class ProductoAlimento extends Producto {
-    private int aporteCalorico;
+public class ProductoAlimento extends Producto implements IPrototype {
+    private int calorias;
 
-    public ProductoAlimento(String id, String descripcion, double precio, int aporteCalorico) {
+    public ProductoAlimento(int id, String descripcion, double precio, int calorias) {
         super(id, descripcion, precio, "Alimento");
-        this.aporteCalorico = aporteCalorico;
+        this.calorias = calorias;
+    }
+
+    public int getCalorias() {
+        return calorias;
     }
 
     @Override
-    public ProductoAlimento clone() {
-        return (ProductoAlimento) super.clone();  // Usamos el método de clonación de la superclase
-    }
-
-    @Override
-    public String obtenerCaracteristica() {
-        return "Aporte calórico: " + aporteCalorico + " kcal";
-    }
-
-    public int getAporteCalorico() {
-        return aporteCalorico;
+    public Producto clonar() {
+        return new ProductoAlimento(id, descripcion, precio, calorias);
     }
 }

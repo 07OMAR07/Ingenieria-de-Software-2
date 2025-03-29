@@ -1,25 +1,23 @@
 package controller;
 
-import services.PagoAdapter;
-import services.NequiAdapter;
-import services.PayPalAdapter;
+import model.Nequi;
+import model.NequiAdapter;
+import model.Pago;
+import model.PayPal;
+import model.PayPalAdapter;
 
-public class ControladorPago {
+public class ControladorPago{
 
-    public void procesarPago(String metodoPago, double monto) {
-        PagoAdapter pagoAdapter;
+    private Pago pago;
 
-        // Elegir el adaptador correcto según el método de pago
-        if ("Nequi".equals(metodoPago)) {
-            pagoAdapter = new NequiAdapter();
-        } else if ("PayPal".equals(metodoPago)) {
-            pagoAdapter = new PayPalAdapter();
+    public String procesarPago(String metodo, double monto) {
+        if (metodo.equals("Nequi")) {
+            pago = new NequiAdapter(new Nequi("diego@gmail.com"));
         } else {
-            System.out.println("Método de pago no soportado");
-            return;
+            pago = new PayPalAdapter(new PayPal(1071162531));
         }
 
-        // Procesar el pago utilizando el adaptador seleccionado
-        pagoAdapter.procesarPago(monto);
+        // Capturar el resultado del pago y retornarlo
+        return pago.realizarPago(monto);
     }
 }

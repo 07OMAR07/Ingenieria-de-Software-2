@@ -1,24 +1,20 @@
 package model;
 
-public class ProductoElectronico extends Producto {
-    private String voltajeEntrada;
+public class ProductoElectronico extends Producto implements IPrototype {
+    private double voltajeEntrada;
 
-    public ProductoElectronico(String id, String descripcion, double precio, String voltajeEntrada) {
-        super(id, descripcion, precio, "Electrónico");  // Fijamos tipo como "Electrónico"
+    public ProductoElectronico(int id, String descripcion, double precio, double voltajeEntrada) {
+        super(id, descripcion, precio, "Electronico");
         this.voltajeEntrada = voltajeEntrada;
     }
 
-    @Override
-    public ProductoElectronico clone() {
-        return (ProductoElectronico) super.clone();  // Usamos el método de clonación de la superclase
-    }
-
-    @Override
-    public String obtenerCaracteristica() {
-        return "Voltaje de entrada: " + voltajeEntrada + "V";
-    }
-
-    public String getVoltajeEntrada() {
+    public double getVoltajeEntrada() {
         return voltajeEntrada;
     }
+
+    @Override
+    public Producto clonar() {
+        return new ProductoElectronico(id, descripcion, precio, voltajeEntrada);
+    }
 }
+
